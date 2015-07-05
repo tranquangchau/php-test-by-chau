@@ -1,0 +1,50 @@
+
+
+<html>
+ <script>
+        //When DOM loaded we attach click event to button
+        $(document).ready(function() {
+            
+            //after button is clicked we download the data
+            $('.button').click(function(){
+
+                //start ajax request
+                $.ajax({
+                    url: "http://localhost/test/ajax/test_2.php",
+                    //force to handle it as text
+                    dataType: "text",
+                    success: function(data) {
+                        
+                        //data downloaded so we call parseJSON function 
+                        //and pass downloaded data
+                        var json = $.parseJSON(data);
+                        //now json variable contains data in json format
+                        //let's display a few items
+                        //$('#results').html('Plugin name: ' + json.step);
+                        document.getElementById('p1').value=json.step;
+                    }
+                });
+            });
+        });
+		
+		$( "p1" ).click(function() {
+		  $( this ).slideUp();
+		});
+		
+		$("target").click(function)[
+			alert("Hello");
+		]);
+    </script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<body>
+	<div class="progress">
+		<div class="progress-bar" style="width:30%">30%</div> 
+	</div>
+<img src="http://localhost/jquery4u-ajax-demos/loading.gif">
+<br><br><br>
+
+<progress value="30" max="100" id="p1">50%</progress>
+<br><br>
+ <input id="target" type="button" value="Get Status" class="button" />
+</body>
+</html>

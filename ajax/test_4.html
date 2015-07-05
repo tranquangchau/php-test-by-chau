@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="flat-ui.min.js"></script>
+<script src="jquery.min.js"></script>
+<link href="flat-ui.min.css" rel="stylesheet">
+<link href="bootstrap.min.css" rel="stylesheet">
+
+<script>
+//load file
+$(document).ready(function() {            
+            //after button is clicked we download the data
+            $('#btnSubmit_Load').click(function(){		
+				ajaxFunction();
+				//timer();
+            })
+        });
+	function ajaxFunction()
+			{
+				//alert("ajaxFunction");
+				//start ajax request
+				$.ajax({
+                    url: "http://localhost/test/ajax/test_2.php",
+					//return json {"step":80}
+                    //force to handle it as text
+                    dataType: "text",
+                    success: function(data) {                        
+                        //data downloaded so we call parseJSON function 
+                        //and pass downloaded data
+                        var json = $.parseJSON(data);
+                        //now json variable contains data in json format
+                        //let's display a few items
+                        //$('#results').html('Plugin name: ' + json.step);
+						if(json.step || json.step==0){
+							document.getElementById('p1').value=json.step;
+							document.getElementById('p1').innerHTML=json.step+'%';
+						}                        
+                    }
+                });	
+				
+				
+				
+				
+			}//end ajaxFunction
+	function timer(){
+				//ajaxFunction();
+				document.getElementById("btnSubmit_Load").click();
+				var width=document.getElementById('p1').value;
+				alert(width);
+				var t1=setTimeout('timer()',1000);
+				if(width > 90){
+					clearTimeout(t1);
+				}
+	}
+	alert("button");
+</script>
+</head>
+<body onload="timer()">
+<br><br><br>
+<progress value="30" max="100" id="p1"></progress>
+<br><br><br>
+<input id = "btnSubmit_Load" type="submit" value="Load"/>
+</body>
+</html>
